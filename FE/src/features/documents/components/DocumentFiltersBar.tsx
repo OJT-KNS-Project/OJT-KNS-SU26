@@ -67,7 +67,7 @@ export default function DocumentFiltersBar({ filters, onChange }: DocumentFilter
             onChange={(e) => setCourseId(e.target.value)}
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
-            <option value="">All Courses</option>
+            <option value="">All Course</option>
             {courses.map((course) => (
               <option key={course.id} value={course.id}>
                 {course.courseCode} - {course.courseName}
@@ -86,7 +86,7 @@ export default function DocumentFiltersBar({ filters, onChange }: DocumentFilter
             onChange={(e) => setFileType(e.target.value)}
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
-            <option value="">All Formats</option>
+            <option value="">All Format</option>
             <option value="pdf">PDF Document (.pdf)</option>
             <option value="docx">Word Document (.docx)</option>
             <option value="pptx">PowerPoint Presentation (.pptx)</option>

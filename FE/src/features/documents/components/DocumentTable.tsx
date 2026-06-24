@@ -42,8 +42,8 @@ export default function DocumentTable({
   if (documents.length === 0) {
     return (
       <EmptyState
-        title="Không tìm thấy tài liệu"
-        description="Thử thay đổi bộ lọc tìm kiếm hoặc tải lên tài liệu mới cho môn học này."
+        title="No documents found"
+        description="Try adjusting your search filters or upload a new document for this course."
       />
     );
   }
@@ -75,14 +75,14 @@ export default function DocumentTable({
         <table className="w-full min-w-[900px] text-left text-sm">
           <thead>
             <tr className="border-b border-border/60 bg-muted/40 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              <th className="px-4 py-3">Tên tài liệu (File)</th>
-              <th className="px-4 py-3">Môn học (Course)</th>
-              <th className="px-4 py-3">Phiên bản</th>
-              <th className="px-4 py-3">Kích thước</th>
-              <th className="px-4 py-3">Người upload</th>
-              <th className="px-4 py-3">Ngày upload</th>
-              <th className="px-4 py-3">Kho tri thức (RAG)</th>
-              <th className="px-4 py-3 text-right">Thao tác</th>
+              <th className="px-4 py-3">Document Name (File)</th>
+              <th className="px-4 py-3">Course Module</th>
+              <th className="px-4 py-3">Version</th>
+              <th className="px-4 py-3">File Size</th>
+              <th className="px-4 py-3">Uploaded By</th>
+              <th className="px-4 py-3">Upload Date</th>
+              <th className="px-4 py-3">Knowledge Base (RAG)</th>
+              <th className="px-4 py-3 text-right">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border/50">
@@ -158,7 +158,7 @@ export default function DocumentTable({
                     size="sm"
                     disabled={isDeleting}
                     onClick={() => {
-                      if (confirm(`Bạn có chắc muốn xóa vĩnh viễn tài liệu "${doc.fileName}"?`)) {
+                      if (confirm(`Are you sure you want to permanently delete "${doc.fileName}"?`)) {
                         onDelete(doc.id);
                       }
                     }}

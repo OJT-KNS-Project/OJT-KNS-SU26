@@ -87,8 +87,8 @@ export default function AdminDocumentsPage() {
             Document & Knowledge Management (SE-F4)
           </h1>
           <p className="mt-2 max-w-2xl text-muted-foreground">
-            Tải lên tài liệu học tập của học viện (PDF, DOCX, PPTX, TXT) và kiểm soát
-            dữ liệu tham chiếu của AI Service bằng trạng thái Kích hoạt/Vô hiệu hóa.
+            Upload academy study materials (PDF, DOCX, PPTX, TXT) and control
+            AI Service reference data via Active/Inactive status toggles.
           </p>
         </div>
         <Button
@@ -97,7 +97,7 @@ export default function AdminDocumentsPage() {
           onClick={() => setUploadOpen(true)}
         >
           <Plus className="h-4 w-4" aria-hidden />
-          Tải tài liệu (Upload)
+          Upload Document
         </Button>
       </div>
 
@@ -107,7 +107,7 @@ export default function AdminDocumentsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <FileText className="h-4 w-4 text-primary" />
-              Tổng tài liệu học tập
+              Total Study Documents
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -122,7 +122,7 @@ export default function AdminDocumentsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <CheckCircle2 className="h-4 w-4 text-emerald-500" />
-              Kích hoạt RAG (Active)
+              RAG Activated (Active)
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -137,7 +137,7 @@ export default function AdminDocumentsPage() {
           <CardHeader className="pb-2">
             <CardTitle className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
-              Vô hiệu hóa (Inactive)
+              Deactivated (Inactive)
             </CardTitle>
           </CardHeader>
           <CardContent>

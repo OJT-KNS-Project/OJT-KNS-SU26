@@ -44,19 +44,19 @@ export default function QaTable({ logs, isLoading, onViewDetails }: QaTableProps
       case "SUCCESS":
         return (
           <span className="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-400 border border-emerald-200/50">
-            Thành công
+            Success
           </span>
         );
       case "FAILED":
         return (
           <span className="inline-flex items-center rounded-full bg-red-50 px-2 py-1 text-xs font-semibold text-red-700 dark:bg-red-950/30 dark:text-red-400 border border-red-200/50">
-            Thất bại
+            Failed
           </span>
         );
       case "PROCESSING":
         return (
           <span className="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-semibold text-amber-700 dark:bg-amber-950/30 dark:text-amber-400 border border-amber-200/50 animate-pulse">
-            Đang xử lý
+            Processing
           </span>
         );
       default:

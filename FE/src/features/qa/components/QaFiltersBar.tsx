@@ -112,7 +112,7 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
             onChange={(e) => setRole(e.target.value)}
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
-            <option value="">All Roles</option>
+            <option value="">All Role</option>
             <option value="STUDENT">Student</option>
             <option value="TEACHER">Teacher</option>
           </select>
@@ -128,7 +128,7 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
             onChange={(e) => setCourseId(e.target.value)}
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
-            <option value="">All Courses</option>
+            <option value="">All Course</option>
             {courses.map((course) => (
               <option key={course.id} value={course.id}>
                 {course.courseCode} - {course.courseName}
@@ -140,17 +140,17 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
         {/* Filter by Processing Status */}
         <div>
           <label className="text-xs font-semibold text-muted-foreground block mb-1">
-            AI Status (Trạng thái)
+            AI Status
           </label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
-            <option value="">All Statuses</option>
-            <option value="SUCCESS">Thành công (SUCCESS)</option>
-            <option value="FAILED">Thất bại (FAILED)</option>
-            <option value="PROCESSING">Đang xử lý (PROCESSING)</option>
+            <option value="">All Status</option>
+            <option value="SUCCESS">SUCCESS</option>
+            <option value="FAILED">FAILED</option>
+            <option value="PROCESSING">PROCESSING</option>
           </select>
         </div>
 
@@ -165,10 +165,10 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
             className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/20 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all hover:bg-muted/30"
           >
             <option value="all">All Time</option>
-            <option value="today">Hôm nay (Today)</option>
-            <option value="7days">7 ngày qua (Last 7 Days)</option>
-            <option value="30days">30 ngày qua (Last 30 Days)</option>
-            <option value="custom">Tùy chỉnh (Custom Range)</option>
+            <option value="today"> Today</option>
+            <option value="7days"> Last 7 Days</option>
+            <option value="30days">Last 30 Days</option>
+            <option value="custom">Custom Range</option>
           </select>
         </div>
       </div>
@@ -214,7 +214,7 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
             }}
             className="h-10 rounded-xl"
           >
-            Clear Dates
+            Clear Date
           </Button>
         </div>
       )}
@@ -229,7 +229,7 @@ export default function QaFiltersBar({ onChange, onReset }: QaFiltersBarProps) {
             className="text-xs hover:bg-destructive/10 hover:text-destructive text-muted-foreground rounded-lg"
           >
             <X className="mr-1 h-3 w-3" />
-            Reset All Filters
+            Reset All Filter
           </Button>
         </div>
       )}

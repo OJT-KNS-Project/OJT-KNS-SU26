@@ -52,7 +52,7 @@ export default function UserFiltersBar({
           }
           aria-label="Filter by role"
         >
-          <option value="">All roles</option>
+          <option value="">All Role</option>
           <option value="STUDENT">Student</option>
           <option value="TEACHER">Teacher</option>
           <option value="ADMIN">Admin</option>
@@ -70,7 +70,7 @@ export default function UserFiltersBar({
           }
           aria-label="Filter by status"
         >
-          <option value="">All statuses</option>
+          <option value="">All Status</option>
           <option value="ACTIVE">Active</option>
           <option value="INACTIVE">Inactive</option>
         </select>

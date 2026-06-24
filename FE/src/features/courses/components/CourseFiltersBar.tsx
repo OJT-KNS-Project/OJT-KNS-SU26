@@ -56,7 +56,7 @@ export default function CourseFiltersBar({
           }
           aria-label="Filter by teacher"
         >
-          <option value="">All teachers</option>
+          <option value="">All Teacher</option>
           {teachers.map((teacher) => (
             <option key={teacher.id} value={teacher.id}>
               {teacher.fullName}
@@ -76,7 +76,7 @@ export default function CourseFiltersBar({
           }
           aria-label="Filter by status"
         >
-          <option value="">All statuses</option>
+          <option value="">All Status</option>
           <option value="ACTIVE">Active</option>
           <option value="INACTIVE">Inactive</option>
         </select>

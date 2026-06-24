@@ -80,7 +80,7 @@ export default function AdminQaHistoryPage() {
         toDate: filters.toDate,
       };
       const allMatchingLogs = await qaService.listAllForExport(exportParams);
-      
+
       if (allMatchingLogs.length === 0) {
         toast.dismiss(exportToast);
         toast.warning("No records to export", {
@@ -90,7 +90,7 @@ export default function AdminQaHistoryPage() {
       }
 
       exportToCsv(allMatchingLogs);
-      
+
       toast.dismiss(exportToast);
       toast.success("Export successful", {
         description: `Exported ${allMatchingLogs.length} audit logs.`,
@@ -156,7 +156,7 @@ export default function AdminQaHistoryPage() {
             <p className="text-3xl font-bold text-foreground">
               {allLogsForStats.total > 0
                 ? `${Math.round((allLogsForStats.success / allLogsForStats.total) * 100)}%`
-                : "100%"}
+                : "0%"}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
               {allLogsForStats.success} successful executions

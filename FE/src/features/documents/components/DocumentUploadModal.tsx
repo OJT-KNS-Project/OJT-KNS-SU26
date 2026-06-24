@@ -53,13 +53,13 @@ export default function DocumentUploadModal({
     const extension = file.name.split(".").pop()?.toLowerCase();
 
     if (!extension || !ALLOWED_EXTENSIONS.includes(extension)) {
-      setValidationError("Chỉ chấp nhận các định dạng file: PDF, DOCX, PPTX, TXT.");
+      setValidationError("Only accepted file formats: PDF, DOCX, PPTX, TXT.");
       setSelectedFile(null);
       return;
     }
 
     if (file.size > MAX_FILE_SIZE) {
-      setValidationError("Kích thước file vượt quá giới hạn cho phép (Tối đa 10 MB).");
+      setValidationError("File size exceeds the allowed limit (Maximum 10 MB).");
       setSelectedFile(null);
       return;
     }
@@ -84,12 +84,12 @@ export default function DocumentUploadModal({
     setValidationError(null);
 
     if (!courseId) {
-      setValidationError("Vui lòng chọn môn học cho tài liệu này.");
+      setValidationError("Please select a course module for this document.");
       return;
     }
 
     if (!selectedFile) {
-      setValidationError("Vui lòng chọn hoặc kéo thả tài liệu để tải lên.");
+      setValidationError("Please select or drag & drop a document to upload.");
       return;
     }
 
@@ -282,14 +282,14 @@ export default function DocumentUploadModal({
               onClick={onClose}
               disabled={isSubmitting}
             >
-              Hủy (Cancel)
+              Cancel
             </Button>
             <Button
               type="submit"
               className="flex-1 rounded-xl shadow-soft"
               isLoading={isSubmitting}
             >
-              Tải lên (Upload)
+              Upload
             </Button>
           </div>
         </form>
