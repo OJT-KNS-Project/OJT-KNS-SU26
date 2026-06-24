@@ -28,6 +28,13 @@ export const API_ENDPOINTS = {
     UPDATE_STATUS: (id: string) => `/documents/${id}/status`,
     DELETE: (id: string) => `/documents/${id}`,
   },
+  CHAT: {
+    HISTORY: (courseId: string) => `/chat?courseId=${courseId}`,
+    SEND: "/chat",
+  },
+  DASHBOARD: {
+    LOGS: "/admin/audit-logs",
+  },
 } as const;
 
 export const QUERY_KEYS = {
@@ -36,4 +43,7 @@ export const QUERY_KEYS = {
   COURSES: ["courses"] as const,
   QA: ["qa-history"] as const,
   DOCUMENTS: ["documents"] as const,
+  CHAT: ["chat"] as const,
+  DASHBOARD: ["dashboard"] as const,
 } as const;
+

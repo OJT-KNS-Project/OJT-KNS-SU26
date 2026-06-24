@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Search, Info, AlertTriangle, ShieldAlert, X } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
-import { mockDashboardData } from "../mockDashboardData";
+import { useAuditLogsQuery } from "../hooks/useDashboard";
 
 const selectClassName =
   "h-11 rounded-xl border border-input/80 bg-muted/40 px-3 text-sm shadow-sm transition-all duration-200 hover:border-input hover:bg-background focus-visible:border-primary/40 focus-visible:bg-background focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/10";
 
 export default function ActivityLogsWidget() {
-  const allLogs = mockDashboardData.getLogs();
+  const { data: allLogs = [], isLoading } = useAuditLogsQuery();
   
   const [search, setSearch] = useState("");
   const [levelFilter, setLevelFilter] = useState<string>("");
@@ -115,7 +115,16 @@ export default function ActivityLogsWidget() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border/50 font-mono text-xs">
-              {filteredLogs.length === 0 ? (
+              {isLoading ? (
+                <tr>
+                  <td colSpan={5} className="px-4 py-8 text-center">
+                    <div className="flex items-center justify-center gap-2 text-muted-foreground">
+                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary/20 border-t-primary" />
+                      <span>Loading audit logs...</span>
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredLogs.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
                     No activity logs match the selected filters.

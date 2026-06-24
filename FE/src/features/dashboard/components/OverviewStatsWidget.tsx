@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Users, BookOpen, FileText, MessageSquare, ClipboardList, ArrowRight } from "lucide-react";
+import { Users, BookOpen, FileText, MessageSquare, ArrowRight } from "lucide-react";
 import { useUsersQuery } from "@/features/users/hooks/useUsers";
 import { useCoursesQuery } from "@/features/courses/hooks/useCourses";
 import { useDocumentsQuery } from "@/features/documents/hooks/useDocuments";
@@ -19,7 +19,6 @@ export default function OverviewStatsWidget() {
   const coursesTotal = coursesQuery.data?.meta.total;
   const documentsTotal = documentsQuery.data?.meta.total;
   const qaTotal = qaQuery.data?.meta.total;
-  const quizzesTotal = 15; // Simulated count
 
   const stats = [
     {
@@ -62,19 +61,11 @@ export default function OverviewStatsWidget() {
       link: "/admin/qa",
       actionText: "View audit logs",
     },
-    {
-      title: "Practice Quizzes",
-      value: quizzesTotal,
-      isLoading: false,
-      description: "Generated revision questions",
-      icon: ClipboardList,
-      color: "text-amber-600 bg-amber-50 border-amber-200/50",
-    },
   ];
 
   return (
     <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => {
           const Icon = stat.icon;
           return (

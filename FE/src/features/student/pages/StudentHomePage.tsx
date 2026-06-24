@@ -5,58 +5,7 @@ import { useStudentEnrollmentsQuery, useCoursesQuery } from "@/features/courses/
 import { Card, CardDescription, CardTitle } from "@/shared/components/ui/card";
 import { Input } from "@/shared/components/ui/input";
 import { Button } from "@/shared/components/ui/button";
-
-interface ChatMessage {
-  id: string;
-  sender: "student" | "ai";
-  text: string;
-  timestamp: string;
-}
-
-const INITIAL_MOCK_CHATS: Record<string, ChatMessage[]> = {
-  "1": [
-    {
-      id: "101",
-      sender: "student",
-      text: "What are the key indications of wind shear?",
-      timestamp: "2026-06-20T10:00:00Z",
-    },
-    {
-      id: "102",
-      sender: "ai",
-      text: "Wind shear is indicated by sudden changes in wind speed and/or direction, causing rapid changes in airspeed and altitude. Key signs include: unexplained changes in airspeed (e.g., gain or loss of 15 knots), sudden rate of climb/descent changes, and alerts from WSR-88D weather radars or LLWAS systems.",
-      timestamp: "2026-06-20T10:00:15Z",
-    },
-  ],
-  "2": [
-    {
-      id: "201",
-      sender: "student",
-      text: "How does the angle of attack affect lift?",
-      timestamp: "2026-06-21T14:30:00Z",
-    },
-    {
-      id: "202",
-      sender: "ai",
-      text: "As the angle of attack (AoA) increases, lift increases proportionally up to a critical point known as the stalling angle (typically around 15-18 degrees). Beyond the critical AoA, flow separation occurs over the upper surface, resulting in a sudden drop in lift and a sharp increase in drag.",
-      timestamp: "2026-06-21T14:30:20Z",
-    },
-  ],
-  "3": [
-    {
-      id: "301",
-      sender: "student",
-      text: "What is the primary function of the PFD?",
-      timestamp: "2026-06-22T09:15:00Z",
-    },
-    {
-      id: "302",
-      sender: "ai",
-      text: "The Primary Flight Display (PFD) integrates critical flight data onto a single electronic display. It features flight instruments such as the attitude indicator, airspeed tape, altimeter tape, vertical speed indicator, and slip/skid coordinator to significantly reduce pilot workload.",
-      timestamp: "2026-06-22T09:15:30Z",
-    },
-  ],
-};
+import { useStudentChatHistoryQuery, useSendStudentMessageMutation } from "../hooks/useStudentChat";
 
 export default function StudentHomePage() {
   const user = useAuthStore((state) => state.user);
@@ -77,38 +26,34 @@ export default function StudentHomePage() {
 
   const [selectedCourseId, setSelectedCourseId] = useState<string | null>(null);
   const [inputText, setInputText] = useState("");
-  const [chatHistories, setChatHistories] = useState<Record<string, ChatMessage[]>>(
-    INITIAL_MOCK_CHATS
-  );
 
   const selectedCourse = studentCourses.find((c) => c.id === selectedCourseId);
-  const chatLogs = selectedCourseId ? chatHistories[selectedCourseId] ?? [] : [];
+
+  // Query chat history via React Query
+  const chatHistoryQuery = useStudentChatHistoryQuery(selectedCourseId, !!selectedCourseId);
+  const chatLogs = chatHistoryQuery.data ?? [];
+
+  // Send message mutation via React Query
+  const sendMessageMutation = useSendStudentMessageMutation();
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputText.trim() || !selectedCourseId || selectedCourse?.status === "INACTIVE") return;
+    if (
+      !inputText.trim() ||
+      !selectedCourseId ||
+      selectedCourse?.status === "INACTIVE" ||
+      sendMessageMutation.isPending
+    )
+      return;
 
-    const newMessage: ChatMessage = {
-      id: String(Date.now()),
-      sender: "student",
+    sendMessageMutation.mutate({
+      courseId: selectedCourseId,
       text: inputText.trim(),
-      timestamp: new Date().toISOString(),
-    };
-
-    const aiResponse: ChatMessage = {
-      id: String(Date.now() + 1),
-      sender: "ai",
-      text: `This is a mock AI response for ${selectedCourse?.courseName ?? "the course"}. In production, this prompt queries the vector DB to output RAG-grounded answers.`,
-      timestamp: new Date().toISOString(),
-    };
-
-    setChatHistories((prev) => ({
-      ...prev,
-      [selectedCourseId]: [...(prev[selectedCourseId] ?? []), newMessage, aiResponse],
-    }));
+    });
 
     setInputText("");
   };
+
 
   const isLoading = enrollmentsQuery.isLoading || coursesQuery.isLoading;
 
@@ -211,9 +156,14 @@ export default function StudentHomePage() {
                   </div>
                 )}
 
-                {/* Chat Message Logs */}
+                 {/* Chat Message Logs */}
                 <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-muted/10">
-                  {chatLogs.length === 0 ? (
+                  {chatHistoryQuery.isLoading ? (
+                    <div className="h-full flex flex-col items-center justify-center space-y-3">
+                      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
+                      <p className="text-xs text-muted-foreground">Loading chat history...</p>
+                    </div>
+                  ) : chatLogs.length === 0 ? (
                     <div className="h-full flex flex-col items-center justify-center text-center p-8">
                       <MessageSquare className="h-10 w-10 text-muted-foreground/40 mb-3" />
                       <p className="text-sm font-medium text-muted-foreground">
@@ -238,13 +188,25 @@ export default function StudentHomePage() {
                             <p className="font-semibold text-[11px] mb-1 opacity-70 tracking-wide uppercase">
                               {isAi ? "AI Assistant" : "You"}
                             </p>
-                            <p className="whitespace-pre-wrap">{msg.text}</p>
-                            <span className="mt-1 block text-[10px] text-right opacity-60">
-                              {new Date(msg.timestamp).toLocaleTimeString([], {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
-                            </span>
+                            <div className="whitespace-pre-wrap">
+                              {msg.text === "..." ? (
+                                <span className="flex items-center gap-1.5 py-1.5 px-0.5">
+                                  <span className="h-2 w-2 animate-bounce rounded-full bg-foreground/60 [animation-delay:-0.3s]"></span>
+                                  <span className="h-2 w-2 animate-bounce rounded-full bg-foreground/60 [animation-delay:-0.15s]"></span>
+                                  <span className="h-2 w-2 animate-bounce rounded-full bg-foreground/60"></span>
+                                </span>
+                              ) : (
+                                msg.text
+                              )}
+                            </div>
+                            {msg.text !== "..." && (
+                              <span className="mt-1 block text-[10px] text-right opacity-60">
+                                {new Date(msg.timestamp).toLocaleTimeString([], {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                })}
+                              </span>
+                            )}
                           </div>
                         </div>
                       );
