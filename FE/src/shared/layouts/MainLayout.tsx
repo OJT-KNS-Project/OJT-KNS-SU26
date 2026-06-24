@@ -45,15 +45,34 @@ export default function MainLayout() {
             )}
 
             {accessToken && user?.role === "TEACHER" && (
-              <NavLink to="/teacher/dashboard" className={navLinkClass}>
-                Dashboard
-              </NavLink>
+              <>
+                <NavLink to="/teacher/dashboard" className={navLinkClass}>
+                  Dashboard
+                </NavLink>
+                <NavLink to="/teacher/courses" className={navLinkClass}>
+                  Courses
+                </NavLink>
+              </>
             )}
 
             {accessToken && user?.role === "ADMIN" && (
-              <NavLink to="/admin/dashboard" className={navLinkClass}>
-                Admin
-              </NavLink>
+              <>
+                <NavLink to="/admin/dashboard" className={navLinkClass}>
+                  Dashboard
+                </NavLink>
+                <NavLink to="/admin/users" className={navLinkClass}>
+                  Users
+                </NavLink>
+                <NavLink to="/admin/courses" className={navLinkClass}>
+                  Courses
+                </NavLink>
+                <NavLink to="/admin/qa" className={navLinkClass}>
+                  Q&A History
+                </NavLink>
+                <NavLink to="/admin/documents" className={navLinkClass}>
+                  Documents
+                </NavLink>
+              </>
             )}
 
             {accessToken ? (

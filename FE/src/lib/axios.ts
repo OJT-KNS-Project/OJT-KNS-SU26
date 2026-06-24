@@ -38,13 +38,13 @@ apiClient.interceptors.response.use(
         const response = await axios.post(`${baseURL}${API_ENDPOINTS.AUTH.REFRESH}`, {
           refreshToken,
         });
+        const responseData = response.data.data ?? response.data;
 
-        const { accessToken, refreshToken: newRefreshToken } =
-          response.data.data ?? response.data;
+        const { accessToken, refreshToken: newRefreshToken, user: newUser } = responseData;
 
         const user = useAuthStore.getState().user;
         if (user) {
-          useAuthStore.getState().setAuth(accessToken, newRefreshToken, user);
+          useAuthStore.getState().setAuth(accessToken, newRefreshToken, newUser || user);
         }
 
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
