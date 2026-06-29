@@ -301,6 +301,7 @@ export default function LoginForm() {
             <br />
             Contact your academy admin if you need access.
           </p>
+
         </div>
       </main>
     </div>

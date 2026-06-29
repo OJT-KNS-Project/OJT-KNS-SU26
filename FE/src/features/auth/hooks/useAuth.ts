@@ -34,11 +34,11 @@ export const useLoginMutation = () => {
       const homePath = from ?? ROLE_HOME_PATH[data.user.role];
       navigate(homePath, { replace: true });
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       const message =
-        error.response?.data?.message ||
-        error.message ||
-        "Invalid credentials or server unavailable.";
+        (error as { response?: { data?: { message?: string } } })?.response
+          ?.data?.message ?? "Invalid credentials or server unavailable.";
+
       toast.error("Login failed", {
         description: message,
       });

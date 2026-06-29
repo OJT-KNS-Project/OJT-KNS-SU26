@@ -8,11 +8,6 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card";
 import { useAuthStore } from "@/features/auth/store";
-import { useStudentEnrollmentsQuery, useCoursesQuery } from "@/features/courses/hooks/useCourses";
-import { Card, CardDescription, CardTitle } from "@/shared/components/ui/card";
-import { Input } from "@/shared/components/ui/input";
-import { Button } from "@/shared/components/ui/button";
-import { useStudentChatHistoryQuery, useSendStudentMessageMutation } from "../hooks/useStudentChat";
 
 export default function StudentHomePage() {
   const user = useAuthStore((state) => state.user);
