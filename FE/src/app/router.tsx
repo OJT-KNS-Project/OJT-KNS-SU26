@@ -81,6 +81,15 @@ export const router = createBrowserRouter([
                   return { Component: TeacherDashboardPage };
                 },
               },
+              {
+                path: "teacher/courses",
+                lazy: async () => {
+                  const { CourseManagementPage } = await import(
+                    "@/features/courses"
+                  );
+                  return { Component: CourseManagementPage };
+                },
+              },
             ],
           },
           {
@@ -93,6 +102,42 @@ export const router = createBrowserRouter([
                     "@/features/dashboard"
                   );
                   return { Component: AdminDashboardPage };
+                },
+              },
+              {
+                path: "admin/users",
+                lazy: async () => {
+                  const { UserManagementPage } = await import(
+                    "@/features/users"
+                  );
+                  return { Component: UserManagementPage };
+                },
+              },
+              {
+                path: "admin/courses",
+                lazy: async () => {
+                  const { CourseManagementPage } = await import(
+                    "@/features/courses"
+                  );
+                  return { Component: CourseManagementPage };
+                },
+              },
+              {
+                path: "admin/qa",
+                lazy: async () => {
+                  const { AdminQaHistoryPage } = await import(
+                    "@/features/qa"
+                  );
+                  return { Component: AdminQaHistoryPage };
+                },
+              },
+              {
+                path: "admin/documents",
+                lazy: async () => {
+                  const { AdminDocumentsPage } = await import(
+                    "@/features/documents"
+                  );
+                  return { Component: AdminDocumentsPage };
                 },
               },
             ],
